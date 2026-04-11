@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+  <title>Hamdan Saddique | AI & Web Developer Portfolio</title>
+  <!-- Google Fonts & Font Awesome -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <!-- Chart.js for GitHub stats visual (optional, but nice) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #f8fafc;
+      color: #0f172a;
+      line-height: 1.5;
+      scroll-behavior: smooth;
+    }
+
+    /* modern gradient accent */
+    :root {
+      --primary: #3b82f6;
+      --primary-dark: #2563eb;
+      --secondary: #8b5cf6;
+      --accent: #06b6d4;
+      --dark-bg: #0f172a;
+      --card-bg: #ffffff;
+      --gray-light: #f1f5f9;
+      --gray-border: #e2e8f0;
+    }
+
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 1.5rem;
+    }
+
+    /* header / nav */
+    .navbar {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid var(--gray-border);
+      padding: 1rem 0;
+    }
+
+    .nav-flex {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      font-weight: 800;
+      font-size: 1.6rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.5px;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      font-weight: 600;
+      color: #1e293b;
+      transition: 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--primary);
+    }
+
+    /* buttons */
+    .btn {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      padding: 0.6rem 1.3rem;
+      border-radius: 40px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1.5px solid var(--primary);
+      color: var(--primary);
+    }
+
+    .btn-outline:hover {
+      background: var(--primary);
+      color: white;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+      transform: translateY(-2px);
+    }
+
+    /* hero section */
+    .hero {
+      padding: 4rem 0 3rem;
+    }
+
+    .hero-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 3rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .hero-content {
+      flex: 1;
+    }
+
+    .hero-badge {
+      background: #e0f2fe;
+      color: #0284c7;
+      display: inline-block;
+      padding: 0.25rem 0.9rem;
+      border-radius: 30px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .hero-content h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .gradient-text {
+      background: linear-gradient(to right, #3b82f6, #8b5cf6);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .hero-desc {
+      font-size: 1.2rem;
+      color: #334155;
+      max-width: 550px;
+      margin: 1.2rem 0 2rem;
+    }
+
+    .social-icons {
+      display: flex;
+      gap: 1.2rem;
+      margin-top: 1.8rem;
+    }
+
+    .social-icons a {
+      background: var(--gray-light);
+      width: 42px;
+      height: 42px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      color: #1e293b;
+      font-size: 1.3rem;
+      transition: 0.2s;
+    }
+
+    .social-icons a:hover {
+      background: var(--primary);
+      color: white;
+      transform: translateY(-3px);
+    }
+
+    /* section titles */
+    .section-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 2rem;
+      position: relative;
+      display: inline-block;
+    }
+    .section-title:after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 55%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      border-radius: 2px;
+    }
+
+    /* skills cards */
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin: 2rem 0 1rem;
+    }
+    .skill-tag {
+      background: white;
+      border-radius: 40px;
+      padding: 0.5rem 1.2rem;
+      font-weight: 500;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+      border: 1px solid var(--gray-border);
+      transition: all 0.2s;
+    }
+    .skill-tag i {
+      margin-right: 8px;
+      color: var(--primary);
+    }
+    .skill-tag:hover {
+      border-color: var(--primary);
+      transform: scale(1.02);
+    }
+
+    /* projects grid */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+      gap: 2rem;
+      margin: 2rem 0;
+    }
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 1.5rem;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.02), 0 2px 4px rgba(0,0,0,0.05);
+      border: 1px solid var(--gray-border);
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+    .project-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 30px -12px rgba(0,0,0,0.1);
+    }
+    .project-icon {
+      font-size: 2.2rem;
+      background: #eef2ff;
+      width: 55px;
+      height: 55px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 18px;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    .project-card h3 {
+      font-size: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+    .project-tech {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 0.8rem 0;
+    }
+    .project-tech span {
+      background: var(--gray-light);
+      font-size: 0.7rem;
+      padding: 0.2rem 0.7rem;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+    .project-links {
+      margin-top: 1rem;
+      display: flex;
+      gap: 1rem;
+    }
+    .project-links a {
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--primary);
+    }
+
+    /* github stats + chart */
+    .stats-wrapper {
+      background: var(--card-bg);
+      border-radius: 28px;
+      border: 1px solid var(--gray-border);
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+    .stats-flex {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2rem;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .stats-text {
+      flex: 1;
+    }
+    .stats-text p {
+      margin: 0.5rem 0;
+      font-size: 1rem;
+    }
+    .stats-chart {
+      flex: 1;
+      max-width: 300px;
+    }
+    canvas {
+      max-height: 200px;
+    }
+
+    /* contribution area (simulate with fun fact + recent) */
+    .repos-list {
+      background: var(--card-bg);
+      border-radius: 24px;
+      border: 1px solid var(--gray-border);
+      padding: 1.5rem;
+      margin-top: 1rem;
+    }
+    .repo-item {
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--gray-border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .repo-name {
+      font-weight: 700;
+    }
+    .repo-name i {
+      color: var(--primary);
+      margin-right: 8px;
+    }
+    .repo-stats {
+      font-size: 0.8rem;
+      color: #475569;
+    }
+
+    /* contact section */
+    .contact-card {
+      background: var(--card-bg);
+      border-radius: 28px;
+      padding: 2rem;
+      text-align: center;
+      border: 1px solid var(--gray-border);
+      margin: 2rem 0;
+    }
+    .contact-email {
+      font-size: 1.2rem;
+      background: var(--gray-light);
+      display: inline-block;
+      padding: 0.6rem 1.5rem;
+      border-radius: 60px;
+      margin: 1rem 0;
+    }
+
+    footer {
+      background: var(--dark-bg);
+      color: #cbd5e1;
+      padding: 2rem 0;
+      text-align: center;
+      margin-top: 3rem;
+    }
+
+    @media (max-width: 700px) {
+      .hero-content h1 { font-size: 2.2rem; }
+      .nav-flex { flex-direction: column; gap: 1rem; }
+      .nav-links { gap: 1.2rem; flex-wrap: wrap; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+
+<nav class="navbar">
+  <div class="container nav-flex">
+    <div class="logo">Hamdan<span class="gradient-text">.ai</span></div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#skills">Skills</a></li>
+      <li><a href="#projects">Projects</a></li>
+      <li><a href="#github">GitHub</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <a href="#contact" class="btn" style="padding:0.5rem 1.2rem">Let's talk</a>
+  </div>
+</nav>
+
+<main>
+  <!-- Hero Section -->
+  <section id="home" class="hero">
+    <div class="container hero-grid">
+      <div class="hero-content">
+        <div class="hero-badge"><i class="fas fa-brain"></i> Turning data into intelligence</div>
+        <h1>Hi, I'm <span class="gradient-text">Hamdan Saddique</span><br>AI & Web Developer</h1>
+        <p class="hero-desc">Passionate about building intelligent systems, machine learning, and modern web apps. Currently exploring Deep Learning & NLP to solve real-world problems.</p>
+        <div class="social-icons">
+          <a href="https://github.com/Hamdan-Saddique-ai" target="_blank"><i class="fab fa-github"></i></a>
+          <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+          <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+          <a href="mailto:hamdan.saddique.ai@gmail.com"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div>
+        <div style="background: linear-gradient(145deg, #eef2ff, #ffffff); border-radius: 2rem; padding: 0.8rem;">
+          <img src="https://avatars.githubusercontent.com/u/your-placeholder?auto" alt="profile" style="width: 200px; border-radius: 2rem; display: block; margin: 0 auto;" onerror="this.src='https://ui-avatars.com/api/?background=3b82f6&color=fff&name=Hamdan+S'">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills & Tech Stack -->
+  <section id="skills" class="container">
+    <h2 class="section-title">🛠️ Tech Arsenal</h2>
+    <div class="skills-grid">
+      <span class="skill-tag"><i class="fab fa-python"></i> Python</span>
+      <span class="skill-tag"><i class="fab fa-java"></i> Java</span>
+      <span class="skill-tag"><i class="fab fa-html5"></i> HTML5/CSS3</span>
+      <span class="skill-tag"><i class="fas fa-brain"></i> Machine Learning</span>
+      <span class="skill-tag"><i class="fas fa-chart-line"></i> Deep Learning</span>
+      <span class="skill-tag"><i class="fas fa-language"></i> NLP</span>
+      <span class="skill-tag"><i class="fas fa-database"></i> Pandas/NumPy</span>
+      <span class="skill-tag"><i class="fas fa-chart-simple"></i> Scikit-learn</span>
+      <span class="skill-tag"><i class="fas fa-robot"></i> NLTK</span>
+      <span class="skill-tag"><i class="fab fa-git-alt"></i> Git/GitHub</span>
+      <span class="skill-tag"><i class="fas fa-code"></i> VS Code</span>
+    </div>
+    <p style="margin-top: 1rem; color: #475569;"><i class="fas fa-lightbulb"></i> Always curious — building intelligent systems from ideas to deployment.</p>
+  </section>
+
+  <!-- Projects (based on your pinned & fun projects) -->
+  <section id="projects" class="container" style="margin-top: 3rem;">
+    <h2 class="section-title">📌 Featured Projects</h2>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-icon"><i class="fas fa-robot"></i></div>
+        <h3>Chatbot with NLP</h3>
+        <p>Conversational AI using Python & NLTK. Understands intents and gives smart responses.</p>
+        <div class="project-tech"><span>Python</span><span>NLTK</span><span>Flask</span></div>
+        <div class="project-links"><a href="#"><i class="fab fa-github"></i> Code</a><a href="#">Live Demo</a></div>
+      </div>
+      <div class="project-card">
+        <div class="project-icon"><i class="fas fa-image"></i></div>
+        <h3>Image Classifier</h3>
+        <p>Deep learning CNN model that classifies images into multiple categories with high accuracy.</p>
+        <div class="project-tech"><span>TensorFlow</span><span>Keras</span><span>Python</span></div>
+        <div class="project-links"><a href="#">GitHub</a></div>
+      </div>
+      <div class="project-card">
+        <div class="project-icon"><i class="fas fa-chart-line"></i></div>
+        <h3>Stock Predictor</h3>
+        <p>Machine learning model to predict stock trends using historical data & regression.</p>
+        <div class="project-tech"><span>Scikit-learn</span><span>Pandas</span><span>Matplotlib</span></div>
+        <div class="project-links"><a href="#">Explore</a></div>
+      </div>
+      <div class="project-card">
+        <div class="project-icon"><i class="fas fa-gamepad"></i></div>
+        <h3>Spin The Wheel</h3>
+        <p>Interactive web game — spin to win random options. Built with HTML, CSS & JS.</p>
+        <div class="project-tech"><span>HTML5</span><span>CSS3</span><span>JavaScript</span></div>
+        <div class="project-links"><a href="https://github.com/Hamdan-Saddique-ai/spin-the-wheel-game" target="_blank">Repository</a></div>
+      </div>
+      <div class="project-card">
+        <div class="project-icon"><i class="fas fa-tasks"></i></div>
+        <h3>TaskMaster Pro</h3>
+        <p>Beautiful to-do list with modern UI, dark mode support & local storage.</p>
+        <div class="project-tech"><span>HTML/CSS</span><span>JS</span><span>LocalStorage</span></div>
+        <div class="project-links"><a href="https://github.com/Hamdan-Saddique-ai/taskmaster-pro" target="_blank">View Repo</a></div>
+      </div>
+      <div class="project-card">
+        <div class="project-icon"><i class="fas fa-book-quran"></i></div>
+        <h3>Quran Verse Translator</h3>
+        <p>Python app that fetches and translates Quranic verses using APIs & NLP preprocessing.</p>
+        <div class="project-tech"><span>Python</span><span>REST API</span><span>JSON</span></div>
+        <div class="project-links"><a href="#">Learn more</a></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- GitHub Stats + Contribution insight -->
+  <section id="github" class="container" style="margin-top: 2rem;">
+    <h2 class="section-title"><i class="fab fa-github"></i> GitHub Pulse</h2>
+    <div class="stats-wrapper">
+      <div class="stats-flex">
+        <div class="stats-text">
+          <h3>📊 Developer metrics</h3>
+          <p><i class="fas fa-code-branch"></i> <strong>Active repositories:</strong> spin-the-wheel-game, taskmaster-pro & more</p>
+          <p><i class="fas fa-star"></i> <strong>Passion:</strong> AI, Python & Web tools</p>
+          <p><i class="fas fa-calendar-alt"></i> Joined GitHub: April 2026 — growing fast 🚀</p>
+          <p><i class="fas fa-lightbulb"></i> Fun fact: Turning ideas into intelligent systems is my superpower.</p>
+        </div>
+        <div class="stats-chart">
+          <canvas id="langChart" width="300" height="200" style="max-width:100%"></canvas>
+          <p style="font-size:0.75rem; text-align:center;">Languages across projects</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Recent public repos from your profile (hardcoded from given data) -->
+    <h3>📁 Pinned Repositories</h3>
+    <div class="repos-list">
+      <div class="repo-item">
+        <div><span class="repo-name"><i class="fab fa-github"></i> spin-the-wheel-game</span><br><small>Interactive wheel game with HTML/CSS/JS</small></div>
+        <div class="repo-stats"><i class="fas fa-code"></i> HTML • ⭐ 1</div>
+      </div>
+      <div class="repo-item">
+        <div><span class="repo-name"><i class="fab fa-github"></i> taskmaster-pro</span><br><small>Modern to-do list app with beautiful UI</small></div>
+        <div class="repo-stats"><i class="fas fa-code"></i> HTML/CSS/JS • ⭐ 1</div>
+      </div>
+      <div class="repo-item">
+        <div><span class="repo-name"><i class="fas fa-chart-simple"></i> AI Experiments</span><br><small>Chatbot, Stock predictor, Image classifier (in progress)</small></div>
+        <div class="repo-stats">Python • ML</div>
+      </div>
+    </div>
+    <div style="margin: 1rem 0; text-align: center;">
+      <a href="https://github.com/Hamdan-Saddique-ai" target="_blank" class="btn-outline btn"><i class="fab fa-github"></i> View all GitHub repositories →</a>
+    </div>
+  </section>
+
+  <!-- Contact & Collaboration -->
+  <section id="contact" class="container" style="margin: 3rem 0;">
+    <h2 class="section-title">🤝 Let's Connect</h2>
+    <div class="contact-card">
+      <i class="fas fa-envelope-open-text" style="font-size: 2rem; color: #3b82f6;"></i>
+      <h3 style="margin: 0.5rem 0;">Open for collaborations & opportunities</h3>
+      <p>I’m actively looking for internships, freelance projects, and AI/ML collaborations.</p>
+      <div class="contact-email">
+        <i class="fas fa-at"></i> hamdan.saddique.ai@gmail.com
+      </div>
+      <div class="social-icons" style="justify-content: center;">
+        <a href="https://github.com/Hamdan-Saddique-ai" target="_blank"><i class="fab fa-github"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a>
+        <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+      </div>
+      <p style="margin-top: 1rem;">📍 Pakistan — GMT+5 | building intelligent future.</p>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="container">
+    <p>© 2026 Hamdan Saddique — Turning data into intelligence 🤖 | Built with <i class="fas fa-heart" style="color: #ef4444;"></i> for AI & web</p>
+    <p style="margin-top: 0.6rem; font-size: 0.8rem;">Based in Pakistan • Learning, building & growing every day</p>
+  </div>
+</footer>
+
+<script>
+  // Chart.js for language distribution demo (representative of your tech stack)
+  const ctx = document.getElementById('langChart').getContext('2d');
+  new Chart(ctx, {
+    type: 'doughnut',
+    data: {
+      labels: ['Python', 'JavaScript', 'HTML/CSS', 'Java', 'ML/AI libraries'],
+      datasets: [{
+        data: [45, 20, 18, 7, 10],
+        backgroundColor: ['#3b82f6', '#f59e0b', '#10b981', '#ef4444', '#8b5cf6'],
+        borderWidth: 0,
+        hoverOffset: 8,
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { position: 'bottom', labels: { font: { size: 10 } } },
+        tooltip: { callbacks: { label: (ctx) => `${ctx.label}: ${ctx.raw}%` } }
+      },
+      cutout: '55%',
+    }
+  });
+
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('.nav-links a, .btn[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+      const targetId = this.getAttribute('href');
+      if (targetId && targetId !== '#') {
+        const targetElement = document.querySelector(targetId);
+        if (targetElement) {
+          e.preventDefault();
+          targetElement.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    });
+  });
+</script>
+<!-- Note: avatar fallback uses UI Avatars, but you can replace with your actual GitHub avatar URL -->
+</body>
+</html>
