@@ -1,4 +1,4 @@
-# Hamdan Saddique — Portfolio Website 🚀
+# Hamdan Saddique  Portfolio Website 🚀
 
 A production-grade personal portfolio built with pure HTML, CSS & JavaScript.
 
